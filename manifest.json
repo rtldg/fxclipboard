@@ -1,0 +1,21 @@
+{
+	"manifest_version": 2,
+	"name": "fxclipboard",
+	"author": "rtldg",
+	"version": "1.0",
+	"description": "Rewrites twitter.com & x.com links in your clipboard to fxtwitter.com for easy pasting into discord",
+	"homepage_url": "https://github.com/rtldg/fxclipboard",
+	"icons": {
+		"48": "icons/fxclipboard48.png",
+		"96": "icons/fxclipboard96.png"
+	},
+
+	"permissions": [
+		"clipboardRead",
+		"clipboardWrite"
+	],
+
+	"background": {
+		"scripts": ["background.js"]
+	}
+}
