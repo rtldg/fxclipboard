@@ -1,5 +1,5 @@
 # fxclipboard
 
-Rewrites `twitter.com` & `x.com` links in your clipboard to `fxtwitter.com` for easy pasting into discord
+Rewrite things in your clipboard, like domains, maybe with regex
 
 https://addons.mozilla.org/en-US/firefox/addon/fxclipboard/
