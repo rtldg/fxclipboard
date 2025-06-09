@@ -2,18 +2,31 @@
 	"manifest_version": 2,
 	"name": "fxclipboard",
 	"author": "rtldg",
-	"version": "1.0",
-	"description": "Rewrites twitter.com & x.com links in your clipboard to fxtwitter.com for easy pasting into discord",
+	"version": "2.0",
+	"description": "Rewrite things in your clipboard, like domains, maybe with regex",
 	"homepage_url": "https://github.com/rtldg/fxclipboard",
 	"icons": {
 		"48": "icons/fxclipboard48.png",
 		"96": "icons/fxclipboard96.png"
 	},
 
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "fxclipboard@rtldg",
+			"strict_min_version": "128.0"
+		}
+	},
+
 	"permissions": [
+		"storage",
 		"clipboardRead",
 		"clipboardWrite"
 	],
+
+	"options_ui": {
+		"page": "options.html",
+		"open_in_tab": true
+	},
 
 	"background": {
 		"scripts": ["background.js"]
