@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "fxclipboard",
 	"author": "rtldg",
-	"version": "2.0",
+	"version": "2.1",
 	"description": "Rewrite things in your clipboard, like domains, maybe with regex",
 	"homepage_url": "https://github.com/rtldg/fxclipboard",
 	"icons": {
