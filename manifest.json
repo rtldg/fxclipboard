@@ -31,7 +31,16 @@
 		"open_in_tab": true
 	},
 
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["rewrite.js", "content.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		}
+	],
+
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["rewrite.js", "background.js"]
 	}
 }

@@ -17,15 +17,15 @@ let MYINTERVAL = 0;
 
 let rewriteClipboard = () => {
 	navigator.clipboard.readText().then((clipText) => {
-		let newtext = clipText;
-		for (const replacement of SETTINGS.plain) {
-			newtext = newtext.replaceAll(replacement[0], replacement[1]);
-		}
-		for (const replacement of SETTINGS.regex) {
-			newtext = newtext.replaceAll(new RegExp(replacement[0], replacement[2]), replacement[1]);
-		}
+		const newtext = rewriteText(clipText, SETTINGS);
 		if (newtext != clipText) {
 			navigator.clipboard.writeText(newtext).then(() => {}, () => {},);
+		}
+	}, (error) => {
+		// WebKit (Orion) never lets a background page read the clipboard, so stop asking three
+		// times a second. content.js handles what it can there.
+		if (error.name == "NotAllowedError") {
+			clearInterval(MYINTERVAL);
 		}
 	});
 };
@@ -44,7 +44,10 @@ browser.runtime.onInstalled.addListener((details) => {
 	}
 });
 
-browser.storage.sync.onChanged.addListener((changes) => {
+// storage.onChanged is the portable one. the per-area storage.sync.onChanged is a newer
+// addition that isn't supported everywhere, and when it doesn't fire nothing below ever
+// runs - which is how the timer could end up never starting at all.
+browser.storage.onChanged.addListener((changes) => {
 	console.log(changes);
 	for (const key of Object.keys(changes)) {
 		SETTINGS[key] = changes[key].newValue;
@@ -59,5 +62,7 @@ browser.storage.sync.get().then((blah) => {
 	} else {
 		SETTINGS = structuredClone(defaultSettings);
 		browser.storage.sync.set(defaultSettings);
+		// without this the timer only ever started from the listener above
+		restartInterval();
 	}
 });
